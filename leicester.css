@@ -87,6 +87,10 @@
 }
 
 
+#lightbubble-leicester-comment-tags .small-button:hover{
+	cursor: pointer;
+}
+
 #lightbubble-leicester-comment-tags input[type=submit]{
 	display: none;
 }
