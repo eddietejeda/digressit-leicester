@@ -12,7 +12,7 @@ License: GPLv2 (http://creativecommons.org/licenses/GPL/2.0/)
 
 
 add_action('init', 'digressit_leicester_flush_rewrite_rules' );
-add_action('authenticated_ajax_function', 'add_comment_tag_ajax');
+add_action('public_ajax_function', 'add_comment_tag_ajax');
 
 
 add_action('wp_print_styles', 'digressit_leicester_print_styles');
@@ -43,7 +43,7 @@ function commentbrowser_comments_by_tag(){
 	global $wp;
 	echo "<h3>Comments by Tags</h3>";
 	commentbrowser_list_tags();
-	return get_comments_by_tag($wp->query_vars['commentbrowser_params']);
+	return get_comments_by_tag(urldecode($wp->query_vars['commentbrowser_params']));
 }
 
 
@@ -134,9 +134,9 @@ function digressit_leicester_add_comment_tags(){
 	?>
 	
 
-	<?php if(is_user_logged_in()): ?>
+	<?php /* if(is_user_logged_in()):*/ ?>
 	<span class="lightbubble lightbubble-leicester-comment-tags small-button" title="<?php echo  $comment->comment_ID; ?>">add tag</span>
-	<?php endif; ?>
+	<?php /*endif;*/ ?>
 
 	<span class="current-leicester-comment-tags">
 	
