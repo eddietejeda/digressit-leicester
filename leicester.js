@@ -2,38 +2,27 @@ jQuery(document).ready(function() {
 
 
 
-	//if(jQuery('body').hasClass('single')){	
-		AjaxResult.add_comment_tag = function(data) {
+	AjaxResult.add_comment_tag = function(data) {
 
 
-			var title = jQuery('#lightbubble-leicester-comment-tags').parent().attr('title');
-			
-			
-			var new_html = jQuery('#comment-'+current_blog_id+'-'+title+' .current-leicester-comment-tags').html() + '<a href="'+siteurl+'/comments-by-tag/'+data.message.comment_tag+'">'  + data.message.comment_tag + '</a>';
-			
-			jQuery('#comment-'+current_blog_id+'-'+title+' .current-leicester-comment-tags').html(new_html);
+		var title = jQuery('#lightbubble-leicester-comment-tags').parent().attr('title');
 		
-			jQuery('#comment_tag').val('');
-			jQuery('#lightbubble-leicester-comment-tags').fadeOut('slow');
+		
+		var new_html = jQuery('#comment-'+current_blog_id+'-'+title+' .current-leicester-comment-tags').html() + '<a href="'+siteurl+'/comments-by-tag/'+data.message.comment_tag+'">'  + data.message.comment_tag + '</a>';
 
-		}
-	//}
-	
-	/*
-	jQuery('#live-post-search').focus(function(){
+		var tag_count =  jQuery('#comment-'+current_blog_id+'-'+title+' .comment_tag').length;
 		
-		if(jQuery('#live-post-search').val() == 'Search'){
-			jQuery('#live-post-search').val('');
-		}
+		alert(tag_count);
 		
+				
+		jQuery('#comment-'+current_blog_id+'-'+title+' .current-leicester-comment-tags').html(new_html);
 	
-		
-	});
-	*/
-	
+		jQuery('#comment_tag').val('');
+		jQuery('#lightbubble-leicester-comment-tags').fadeOut('slow');
+
+	}
 
 
-	
 	jQuery('.lightbubble-leicester-comment-tags').click(function(e){
 		var comment_id = jQuery(this).attr('title');
 		jQuery('#comment_tag_id').val(comment_id);
