@@ -24,7 +24,7 @@ add_action('digressit_custom_commenbox_header', 'digressit_leicester_show_commen
 add_action('add_lightbubble', 'digressit_lightbubble_leicester_comment_tags');
 add_action('add_digressit_leicester_link', 'digressit_leicester_digressit_leicester_link');
 
-add_action('custom_default_top_menu', 'digressit_leicester_top_menu');
+add_action('optional_menu_item', 'digressit_leicester_top_menu');
 
 
 add_action('add_commentbrowser', 'commentbrowser_comments_by_tag');
@@ -152,7 +152,7 @@ function digressit_leicester_add_comment_tags(){
 	<?php
 	foreach($current_tags as $key=>$tag){
 	
-		?><a href='<?php echo  get_bloginfo('home')."/comments-by-tag/".$tag; ?>'><span class='tag'><?php echo $tag; ?></span></a><?php
+		?><div class='comment_tag'><a href='<?php echo  get_bloginfo('home')."/comments-by-tag/".$tag; ?>'><?php echo $tag; ?></a></div><?php
 	
 	}
 	?>

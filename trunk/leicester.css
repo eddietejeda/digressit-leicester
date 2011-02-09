@@ -77,8 +77,9 @@
 #lightbubble-leicester-comment-tags  div.bubble{
 	font-size: 100%;
 }
-#lightbubble-leicester-comment-tags  .tag{
-	padding-right: 2px;
+#lightbubble-leicester-comment-tags  .comment_tag{
+	padding-right: 5px;
+	clear: both;
 }
 
 #lightbubble-leicester-comment-tags .small-button{
