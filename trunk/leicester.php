@@ -12,8 +12,8 @@ License: GPLv2 (http://creativecommons.org/licenses/GPL/2.0/)
 
 
 add_action('init', 'digressit_leicester_flush_rewrite_rules' );
-add_action('public_ajax_function', 'add_comment_tag_ajax');
-
+add_action('public_ajax_function', 'comment_tags_ajax');
+add_action('public_ajax_function', 'comment_add_tag_ajax');
 
 add_action('wp_print_styles', 'digressit_leicester_print_styles');
 add_action('wp_print_scripts', 'digressit_leicester_print_scripts' );
@@ -130,15 +130,14 @@ function digressit_leicester_show_comment_tags(){
 
 
 function digressit_leicester_add_comment_tags(){
-	global $comment;
+	global $comment, $blog_id;
 	?>
 	
 
-	<?php /* if(is_user_logged_in()):*/ ?>
-	<span class="lightbubble lightbubble-leicester-comment-tags small-button" title="<?php echo  $comment->comment_ID; ?>">add tag</span>
-	<?php /*endif;*/ ?>
+	<div class="ajax-simple comment-tags comment-button comment-hover small-button" value='<?php echo http_build_query(array('comment_id' => $comment->comment_ID, 'blog_id' => $blog_id)); ?>' >Add Tag</div>
 
-	<span class="current-leicester-comment-tags">
+
+	<div class="current-leicester-comment-tags">
 	
 	<?php
 	$current_tags  = (array)get_metadata('comment', $comment->comment_ID, 'comment_tag') ;
@@ -156,7 +155,7 @@ function digressit_leicester_add_comment_tags(){
 	
 	}
 	?>
-	</span>	
+	</div>	
 	<?php
 	
 }
@@ -175,8 +174,8 @@ function digressit_lightbubble_leicester_comment_tags(){
 			<input name="tag" id="comment-tags" type="text" value="">
 			<input name="tags-comment-id" id="tags-comment-id" type="hidden" value="">
 
-			<span class="lightbubble-submit ajax" tabindex="100" > Add Tag <span class="loading-bars"></span></span>
-			<span class="lightbubble-close lightbubble-close-icon"></span>
+			<div class="lightbubble-submit ajax" tabindex="100" > Add Tag <div class="loading-bars"></div></div>
+			<div class="lightbubble-close lightbubble-close-icon"></div>
 
 		</form>
 		</div>
@@ -195,16 +194,56 @@ function digressit_leicester_top_menu(){
 }
 
 
-function add_comment_tag_ajax($request_params){
-	extract($request_params);
 
-	if(add_metadata('comment', $request_params['comment_id'], 'comment_tag', $request_params['comment_tag'])){
-		die(json_encode(array('status' => 1, "message" => $request_params)));
-	}
-	else{
-		die(json_encode(array('status' => 0, "message" => $request_params)));		
-	}
+function comment_add_tag_ajax($request_params){
+	extract($request_params);
+	global $wpdb, $current_user;
+	$message['comment_tag'] = add_metadata('comment', $request_params['comment_id'], 'tag', $request_params['comment_tag']);				
+	die(json_encode(array('status' => 1, "message" => $message)));
 }
+
+
+
+
+
+function comment_tags_ajax($request_params){
+	extract($request_params);
+	global $wpdb, $current_user;
+	$comment_id = $request_params['comment_id'];						
+
+
+
+	$tags = get_metadata('comment', $comment_id, 'comment_tag');
+	
+	//var_dump($tags);
+	
+	$message = null;
+	$message = '<span id="lightbox-comment-tags">';
+	
+	foreach($tags as $key=>$tag):
+		if(strlen($tag)):
+			$message .= '<div class="lightbox-comment-tag">  <div class="tag_name">'.$tag.'</div>  <div class="ajax-simple delete-tag" value=""></div> </div>';
+		endif;
+	endforeach;
+	$message .= "</span>";
+
+
+
+    $message .= '<form class="ajax" method="post"  id="comment-add-tag">
+				<div>
+				<input type="text"  id="current_comment_tag" name="comment_tag" value="">
+				<input type="hidden" id="comment_id" name="comment_id" value="'.$comment_id.'">
+				<input type="hidden" id="blog_id" name="blog_id" value="'.$blog_id.'">
+				
+				
+				<div id="add-tag" class="lightbox-submit ajax" tabindex="100" ><span class="loading-bars"></span>Add Tag</div>
+				</div>
+				
+    			</form>';
+	
+	die(json_encode(array('status' => 1, "message" => $message)));
+}
+
 
 
 

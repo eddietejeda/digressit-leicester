@@ -1,6 +1,29 @@
 jQuery(document).ready(function() {
 
 
+	AjaxResult.comment_tags = function(data) {
+		if(data.status == 1){
+			jQuery('#lightbox-generic-response > p').empty();
+			jQuery('#lightbox-generic-response > p').append(data.message);
+			jQuery('body').openlightbox('#lightbox-generic-response');
+		}
+	}
+
+	AjaxResult.comment_add_tag = function(data) {
+		
+
+		if(data.status == 1){
+
+
+
+			jQuery('#lightbox-comment-tags').append('<div class="lightbox-comment-tag">  <div class="tag_name">' + jQuery('#current_comment_tag').val() + '</div>  <div class="ajax-simple delete-tag" value=""></div> </div>');
+			jQuery('#current_comment_tag').val('');
+			
+		}		
+
+	}	
+
+/*
 
 	AjaxResult.add_comment_tag = function(data) {
 
@@ -41,6 +64,7 @@ jQuery(document).ready(function() {
 		
 	});
 	
+	*/
 
 	
 });
