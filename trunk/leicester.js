@@ -16,6 +16,8 @@ jQuery(document).ready(function() {
 
 
 
+			//alert('#comment-' + data.message.blog_id + '-' + data.message.comment_id + ".current-leicester-comment-tags");
+			jQuery('#comment-' + data.message.blog_id + '-' + data.message.comment_id + " .current-leicester-comment-tags").append('<a href="'+ siteurl +'/comments-by-tag/'+jQuery('#current_comment_tag').val()+'">'+jQuery('#current_comment_tag').val() + '</a>' );
 			jQuery('#lightbox-comment-tags').append('<div class="lightbox-comment-tag">  <div class="tag_name">' + jQuery('#current_comment_tag').val() + '</div>  <div class="ajax-simple delete-tag" value=""></div> </div>');
 			jQuery('#current_comment_tag').val('');
 			
