@@ -112,7 +112,7 @@ function digressit_leicester_show_comment_tags(){
 		<form class="ajax-auto-submit" method="post"  id="add-comment-tag">
 			<blockquote>
 				<p>
-					Add Tag
+					add tag
 					<input type="text" id="comment_tag" name="comment_tag">
 					<input type="hidden" id="comment_tag_id" name="comment_id">
 					<input disabled='disabled' type="submit">
@@ -141,6 +141,7 @@ function digressit_leicester_add_comment_tags(){
 	
 	<?php
 	$current_tags  = (array)get_metadata('comment', $comment->comment_ID, 'comment_tag') ;
+	//var_dump($current_tags);
 	?>
 	
 	
@@ -197,8 +198,10 @@ function digressit_leicester_top_menu(){
 
 function comment_add_tag_ajax($request_params){
 	extract($request_params);
-	global $wpdb, $current_user;
-	$message['comment_tag'] = add_metadata('comment', $request_params['comment_id'], 'tag', $request_params['comment_tag']);				
+	global $wpdb, $current_user, $blog_id;
+	$message['comment_tag'] = add_metadata('comment', $request_params['comment_id'], 'comment_tag', $request_params['comment_tag']);				
+	$message['comment_id'] = $comment_id;
+	$message['blog_id'] = $blog_id;
 	die(json_encode(array('status' => 1, "message" => $message)));
 }
 
@@ -232,7 +235,7 @@ function comment_tags_ajax($request_params){
     $message .= '<form class="ajax" method="post"  id="comment-add-tag">
 				<div>
 				<input type="text"  id="current_comment_tag" name="comment_tag" value="">
-				<input type="hidden" id="comment_id" name="comment_id" value="'.$comment_id.'">
+				<input type="hidden" id="comment_tag_id" name="comment_id" value="'.$comment_id.'">
 				<input type="hidden" id="blog_id" name="blog_id" value="'.$blog_id.'">
 				
 				

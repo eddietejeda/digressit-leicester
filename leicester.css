@@ -34,6 +34,10 @@
 	width:385px;
 }
 
+.small-button:hover{
+	cursor: pointer;
+}
+
 
 #lightbubble-leicester-comment-tags{
 	position: absolute;
@@ -77,11 +81,14 @@
 #lightbubble-leicester-comment-tags  div.bubble{
 	font-size: 100%;
 }
-#lightbubble-leicester-comment-tags  .comment_tag{
+.comment_tag{
 	padding-right: 5px;
 	clear: both;
+	display: inline;
 }
-
+.tag_name{
+	margin: 5px 0;
+}
 #lightbubble-leicester-comment-tags .small-button{
 	clear:both;
 	position: relative !important;
