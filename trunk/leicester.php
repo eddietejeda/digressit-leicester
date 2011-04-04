@@ -60,7 +60,7 @@ function commentbrowser_list_tags(){
 	<?php
 	$permalink = get_bloginfo('siteurl')."/".$wp->query_vars['commentbrowser_function'].'/'.$tag->meta_value;
 	?>
-	<li><a href="<?php echo $permalink; ?>"><?php echo $tag->meta_value; ?> (<?php echo $tag->comment_tag_count; ?>)</a></li>
+	<ul><li><a href="<?php echo $permalink; ?>"><?php echo $tag->meta_value; ?> (<?php echo $tag->comment_tag_count; ?>)</a></li></ul>
 	<?php endforeach;
 	?>
 	</ol>
